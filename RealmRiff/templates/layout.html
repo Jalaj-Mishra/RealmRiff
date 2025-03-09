@@ -12,10 +12,12 @@
             {% csrf_token %}
             <button type="submit">Logout</button>
         </form>
+        <a href="{% url "genres:all" %}">Genre</a></h3>
     {% else %}
         <h3><a href="{% url "home" %}">Home</a></h3>
-        <h3><a href="{% url "accounts:login" %}">Login</a></h3>
-        <h3><a href="{% url "accounts:signup" %}">SignUp</a></h3>
+        <a href="{% url "accounts:login" %}">Login</a>
+        <a href="{% url "accounts:signup" %}">SignUp</a>
+        <a href="{% url "genres:all" %}">Genre</a>
     {% endif %}
     {% block content %}
     {% endblock %}
