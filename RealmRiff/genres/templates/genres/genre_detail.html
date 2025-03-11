@@ -16,5 +16,16 @@
 
 
 {% block middle %}
-    <h2>No posts in this genre yet!</h2>
+    {% for post in post_list %}
+        <h3><a href="{% url "posts:single", username=posts.user.username pk=posts.pk %}">{{post.name}}</h3>
+        <span><a href="{% url "posts:for_user", username=posts.user.username %}"> @{{post.user.username}}</a></span>
+        <time class="time">{{post.created_at}}</time>
+        <p>{{post.content}}</p>
+        {% if user.is_authenticated and posts.user == user and not hide_delete %}
+            <a href="{% url "posts:delete" pk=posts.pk %}" title="delete">
+                <span class="text-danger icon-lable">Delete</span>
+            </a>
+        {% endif %}
+    {% empty %}
+    {% endfor %}
 {% endblock %}
