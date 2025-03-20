@@ -15,7 +15,7 @@
             <li><h3><a href="{% url "genres:single" slug=genre.slug %}">{{genre.name}}</a></h3>
             {{genre.description_html | safe}}
             {{genre.fellows.count}} fellows
-            {{genre.fellows.count | pluralize}}
+            {% comment %} {{genre.fellows.count | pluralize}} {% endcomment %}
             </li>
         {% endfor %}
     </ul>

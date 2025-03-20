@@ -1,7 +1,7 @@
-{% extends "posts/post_base.htl.html" %}
+{% extends "posts/post_base.html" %}
 {% block post_content %}
 <h4>Create New Post</h4>
-<form action="{% url "posts:Create" %}" id="postForm" method="post">
+<form action="{% url "posts:create" %}" id="postForm" method="post">
     {% csrf_token %}
     {{form}}
     <input type="submit" value="Post">

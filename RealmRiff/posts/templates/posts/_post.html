@@ -1,18 +1,18 @@
 <h3>
-    <a href="{% url "posts:single" username=posts.user.username pk=posts.pk %}">{{posts.name}}</a>
+    <a href="{% url "posts:single" username=post.user.username pk=post.pk %}">{{post.name}}</a>
 </h3>
 
 <span>
-    <a href="{% url "posts:for_user" username=posts.user.username %}"> @{{posts.user.username}}</a>
+    <a href="{% url "posts:for_user" username=post.user.username %}"> @{{post.user.username}}</a>
 </span>
 
 <time>
     {% if posts.genre %}
-        <span>in <a href="{% url "genres:single" slug=posts.genre.slug %}" {{posts.genre.name}}</a></span>
-        <p>{{posts.content}}</p>
+        <span>in <a href="{% url "genres:single" slug=post.genre.slug %}" {{post.genre.name}}</a></span>
+        <p>{{post.content}}</p>
     {% endif %}
     {% if user.is_authenticated and post.user == user and not hide_delete %}
-            <a href="{% url "posts:delete" pk=posts.pk %}" title="delete">
+            <a href="{% url "posts:delete" pk=post.pk %}" title="delete">
                 <span class="text-danger icon-label">Delete</span>
     {% endif %}
 </time>

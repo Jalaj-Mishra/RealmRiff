@@ -1,5 +1,5 @@
 from django.views import View
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.contrib.auth import get_user
 from genres.models import Genre, GenreFellow
 from posts.models import Post
@@ -8,10 +8,15 @@ class HomePage(View):
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return render(request, 'index.html')
-        association_list = []
         user_logged_in = get_user(request)
+        association_list = []
         print("Testing###########1", user_logged_in.username)
-        for item in GenreFellow.objects.all():
+
+        # Accessing the items in Genre DB
+        GenreItems = GenreFellow.objects.all()
+        if len(GenreItems) == 0:
+            return render(request, 'genres/genre_list.html')
+        for item in GenreItems:     
             print("#######2",item)
             if item.user == user_logged_in:
                 print("Test-item", item.user)

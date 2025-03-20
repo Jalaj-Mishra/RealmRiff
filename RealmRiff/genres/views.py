@@ -18,12 +18,18 @@ class SingleGenre(View):
 
     def get(self, request, *args, **kwargs):
         genre_opened = get_object_or_404(Genre, slug=self.kwargs.get('slug'))
+        print("#################2", genre_opened)
         Post_to_displayed = []
+        PostList = Post.objects.all()
+        if len(PostList) == 0:
+            return render(request, 'genres/genre_list.html')
+        print(len(PostList))
         Post_to_displayed.extend(
             item
-            for item in Post.objects.all()
+            for item in PostList
             if str(item.genre) == str(genre_opened.name)
         )
+        print("##########33", Post_to_displayed)
         return render(request, 'genres/genre_detail.html', {"post_list": Post_to_displayed, 'genre': genre_opened})
 
 

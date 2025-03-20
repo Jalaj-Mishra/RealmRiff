@@ -43,6 +43,7 @@ class PostDetail(SelectRelatedMixin, generic.DetailView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        print("###########POST")
         return queryset.filter(
             user__username__iexact=self.kwargs.get("username")
         )
@@ -62,7 +63,7 @@ class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
 class DeletePost(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
     model = models.Post
     select_related = ("user", "genre")
-    success_url = reverse_lazy("posts:all")
+    success_url = reverse_lazy("posts:all") 
 
 
     def get_queryset(self):
