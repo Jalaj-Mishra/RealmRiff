@@ -6,8 +6,8 @@ from . import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from braces.views import SelectRelatedMixin
-from django.contrib.messages.views import SuccessMessageMixin
-from django.core.exceptions import PermissionDenied
+# from django.contrib.messages.views import SuccessMessageMixin
+# from django.core.exceptions import PermissionDenied
 # Create your views here.
 
 User = get_user_model()
@@ -61,7 +61,7 @@ class CreatePost(LoginRequiredMixin, SelectRelatedMixin, generic.CreateView):
         return super().form_valid(form)
 
 
-class DeletePost(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView):
+class DeletePost(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
     model = models.Post
     select_related = ("user", "genre")
     success_url = reverse_lazy("posts:all")
@@ -71,12 +71,12 @@ class DeletePost(LoginRequiredMixin, SuccessMessageMixin, generic.DeleteView):
         queryset = super().get_queryset()
         return queryset.filter(user_id=self.request.user.id)
 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset)
-        # If the post doesn't belong to the current user, raise PermissionDenied
-        if obj.user != self.request.user:
-            raise PermissionDenied("You do not have permission to delete this post.")
-        return obj
+    # def get_object(self, queryset=None):
+    #     obj = super().get_object(queryset)
+    #     # If the post doesn't belong to the current user, raise PermissionDenied
+    #     if obj.user != self.request.user:
+    #         raise PermissionDenied("You do not have permission to delete this post.")
+    #     return obj
 
     def delete(self, *args, **kwargs):
         # Optionally, you could log the deletion or do any additional actions here
