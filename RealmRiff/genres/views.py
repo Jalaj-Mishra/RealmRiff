@@ -1,7 +1,8 @@
 from django.db import IntegrityError
 from django.urls import reverse
 from . import models
-from django.views import generic
+from posts.models import Post
+from django.views import View, generic
 from django.shortcuts import render
 from django.contrib import messages
 from .models import Genre, GenreFellow
@@ -13,8 +14,18 @@ class CreateGenre(LoginRequiredMixin, generic.CreateView):
     fields = ["name", "description"]
     model = Genre
 
-class SingleGenre(generic.DetailView):
-    model = Genre
+class SingleGenre(View):
+
+    def get(self, request, *args, **kwargs):
+        genre_opened = get_object_or_404(Genre, slug=self.kwargs.get('slug'))
+        Post_to_displayed = []
+        PostList = Post.objects.all()
+        Post_to_displayed.extend(
+            item
+            for item in PostList
+            if str(item.genre) == str(genre_opened.name)
+        )
+        return render(request, 'genres/genre_detail.html', {"post_list": Post_to_displayed, 'genre': genre_opened})
 
 
 class ListGenre(generic.ListView):

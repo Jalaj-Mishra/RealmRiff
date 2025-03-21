@@ -1,0 +1,10 @@
+{% extends "posts/post_base.html" %}
+{% block post_content %}
+    <h3>Are you sure want to delete this post</h3>
+        {% include "posts/_post.html" with post=object hide_delete=True %}
+    <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Confirm Delete">
+        <a href="{% url "posts:single" username=object.user.username pk=object.pk %}">Cancel</a>
+    </form>
+{% endblock %}
