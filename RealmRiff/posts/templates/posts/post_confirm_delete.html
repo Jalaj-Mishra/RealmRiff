@@ -5,6 +5,6 @@
     <form method="post">
         {% csrf_token %}
         <input type="submit" value="Confirm Delete">
-        <a href="{% url "posts:single" usernameuser.username pk=object.pk %}">Cancel</a>
+        <a href="{% url "posts:single" username=object.user.username pk=object.pk %}">Cancel</a>
     </form>
 {% endblock %}
