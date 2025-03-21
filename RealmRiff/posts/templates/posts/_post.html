@@ -7,9 +7,9 @@
 </span>
 
 <time>
-    {% if posts.genre %}
+    {% if post.genre %}
         <span>in <a href="{% url "genres:single" slug=post.genre.slug %}" {{post.genre.name}}</a></span>
-        <p>{{post.content}}</p>
+        <p>{{post.content}}</p> 
     {% endif %}
     {% if user.is_authenticated and post.user == user and not hide_delete %}
             <a href="{% url "posts:delete" pk=post.pk %}" title="delete">

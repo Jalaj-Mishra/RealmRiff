@@ -21,9 +21,6 @@ class SingleGenre(View):
         print("#################2", genre_opened)
         Post_to_displayed = []
         PostList = Post.objects.all()
-        if len(PostList) == 0:
-            return render(request, 'genres/genre_list.html')
-        print(len(PostList))
         Post_to_displayed.extend(
             item
             for item in PostList

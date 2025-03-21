@@ -43,7 +43,7 @@ class PostDetail(SelectRelatedMixin, generic.DetailView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        print("###########POST")
+        print("###########POST", self.request.user.username)
         return queryset.filter(
             user__username__iexact=self.kwargs.get("username")
         )
@@ -74,4 +74,3 @@ class DeletePost(LoginRequiredMixin, SelectRelatedMixin, generic.DeleteView):
     def delete(self, *args, **kwargs):
         messages.success(self.request, "Post Deleted")
         return super().delete(*args, **kwargs)
-    
