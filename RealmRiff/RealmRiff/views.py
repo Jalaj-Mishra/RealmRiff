@@ -10,16 +10,13 @@ class HomePage(View):
             return render(request, 'index.html')
         user_logged_in = get_user(request)
         association_list = []
-        print("Testing###########1", user_logged_in.username)
 
         # Accessing the items in Genre DB
         GenreItems = GenreFellow.objects.all()
         if len(GenreItems) == 0:
-            return render(request, 'genres/genre_list.html')
+            return render(request, 'index.html')
         for item in GenreItems:     
-            print("#######2",item)
             if item.user == user_logged_in:
-                print("Test-item", item.user)
                 association_list.append(item.genre)
         post_to_displayed = [
             post_item

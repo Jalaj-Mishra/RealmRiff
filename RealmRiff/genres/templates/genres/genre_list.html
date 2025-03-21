@@ -3,7 +3,7 @@
 {% block top %}
     <h2>Genres</h2>
     <p>Welcome to the Genre Page!</p>
-    <p>Select a Genre you would like to read or write about.</p>
+    {% comment %} <p>Select a Genre you would like to read or write about.</p> {% endcomment %}
     {% if user.is_authenticated %}
         <a href="{% url "genres:create" %}">Create New Genre!</a>
     {% endif %}
